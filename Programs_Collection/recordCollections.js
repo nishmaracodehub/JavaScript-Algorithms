@@ -22,36 +22,53 @@ var collection = {
 var collectionCopy = JSON.parse(JSON.stringify(collection));
 
 // Only change code below this line
+// function updateRecords(id, prop, value) {
+//   if (
+//     collectionCopy.hasOwnProperty(id) &&
+//     typeof collectionCopy[id] === "object"
+//   ) {
+//     if (prop === "tracks") {
+//       if (collectionCopy[id].hasOwnProperty(prop)) {
+//         console.log("tracks");
+//         value
+//           ? collectionCopy[id][prop].push(value)
+//           : delete collectionCopy[id][prop];
+//       } else {
+//         console.log("tracks not there");
+//         if (value) {
+//           let tracks = [];
+//           tracks.push(value);
+//           collectionCopy[id]["tracks"] = tracks;
+//         }
+//       }
+//     } else {
+//       console.log("not tracks");
+//       if (value !== "") {
+//         collectionCopy[id][prop] = value;
+//         console.log(collectionCopy[id].prop);
+//       } else {
+//         delete collectionCopy[id][prop];
+//       }
+//     }
+//   }
+//   console.log(JSON.stringify(collectionCopy));
+//   return collectionCopy;
+// }
+
+// Better way
 function updateRecords(id, prop, value) {
-  if (
-    collectionCopy.hasOwnProperty(id) &&
-    typeof collectionCopy[id] === "object"
-  ) {
-    if (prop === "tracks") {
-      if (collectionCopy[id].hasOwnProperty(prop)) {
-        console.log("tracks");
-        value
-          ? collectionCopy[id][prop].push(value)
-          : delete collectionCopy[id][prop];
-      } else {
-        console.log("tracks not there");
-        if (value) {
-          let tracks = [];
-          tracks.push(value);
-          collectionCopy[id]["tracks"] = tracks;
-        }
-      }
+  if (prop === "tracks" && value !== "") {
+    if (collectionCopy[id][prop]) {
+      collectionCopy[id][prop].push(value);
     } else {
-      console.log("not tracks");
-      if (value !== "") {
-        collectionCopy[id][prop] = value;
-        console.log(collectionCopy[id].prop);
-      } else {
-        delete collectionCopy[id][prop];
-      }
+      collectionCopy[id][prop] = [value];
     }
+  } else if (value !== "") {
+    collectionCopy[id][prop] = value;
+  } else {
+    delete collectionCopy[id][prop];
   }
-  console.log(JSON.stringify(collectionCopy));
+  console.log(collectionCopy);
   return collectionCopy;
 }
 
